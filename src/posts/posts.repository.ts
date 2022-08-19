@@ -8,16 +8,16 @@ import { CreatePostDto } from './dto/create-post.dto';
 export class PostsRepository {
   constructor(@InjectModel(Post.name) private postModel: Model<PostDocument>) {}
 
-  async create(createPostDto: CreatePostDto): Promise<CreatePostDto> {
+  async create(createPostDto: CreatePostDto): Promise<Post> {
     const createdPost = new this.postModel(createPostDto);
     return createdPost.save();
   }
 
-  async findAll(): Promise<CreatePostDto[]> {
-    return this.postModel.find().exec();
+  async findAll(): Promise<Post[]> {
+    return this.postModel.find().populate('category').exec();
   }
 
-  async findById(id: string): Promise<CreatePostDto> {
-    return this.postModel.findById(id);
+  async findById(id: string): Promise<Post> {
+    return this.postModel.findById(id).populate('category');
   }
 }

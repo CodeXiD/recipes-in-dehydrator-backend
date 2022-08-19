@@ -10,11 +10,11 @@ export class CategoryRepository {
     @InjectModel(Category.name) private categoryModel: Model<CategoryDocument>,
   ) {}
 
-  async findAll(): Promise<CreateCategoryDto[]> {
+  async findAll(): Promise<Category[]> {
     return this.categoryModel.find().exec();
   }
 
-  async findById(id: string): Promise<CreateCategoryDto> {
+  async findById(id: string): Promise<Category> {
     return this.categoryModel.findById(id);
   }
 }
