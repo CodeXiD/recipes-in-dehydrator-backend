@@ -9,6 +9,10 @@ export class CategoriesService {
     return this.categoryRepository.findAll();
   }
 
+  public async findPostsByCategoryId(id: string) {
+    return this.categoryRepository.findPostsByCategoryId(id);
+  }
+
   public async findOne(id: string) {
     const foundCategory = await this.categoryRepository.findById(id);
 

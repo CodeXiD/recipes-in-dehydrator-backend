@@ -23,4 +23,9 @@ export class CategoriesController {
   findOne(@Param('id') id: string) {
     return this.categoriesService.findOne(id);
   }
+
+  @Get(':id/posts')
+  findPostsByCategoryId(@Param('id') id: string) {
+    return this.categoriesService.findPostsByCategoryId(id);
+  }
 }
