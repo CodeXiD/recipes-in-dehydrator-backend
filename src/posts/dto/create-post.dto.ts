@@ -6,4 +6,5 @@ export class CreatePostDto {
   imageUrl: string;
   author: string;
   category: mongoose.Schema.Types.ObjectId;
+  tags: string[];
 }

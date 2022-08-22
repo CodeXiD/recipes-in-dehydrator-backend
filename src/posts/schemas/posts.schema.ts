@@ -30,6 +30,9 @@ export class Post {
     required: true,
   })
   category: Category;
+
+  @Prop({ required: true })
+  tags: string[];
 }
 
 const PostSchema = SchemaFactory.createForClass(Post);
