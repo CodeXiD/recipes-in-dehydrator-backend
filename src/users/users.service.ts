@@ -6,7 +6,10 @@ import { User } from './schemas/users.schema';
 export class UsersService {
   constructor(private readonly userRepository: UsersRepository) {}
 
-  public async findOneByPhone(phone: string): Promise<User | undefined> {
-    return this.userRepository.findOneByPhone(phone);
+  public async findOneByPhone(
+    phone: string,
+    withPassword = false,
+  ): Promise<User | undefined> {
+    return this.userRepository.findOneByPhone(phone, withPassword);
   }
 }

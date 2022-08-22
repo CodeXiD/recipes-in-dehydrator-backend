@@ -17,7 +17,14 @@ export class UsersRepository {
     return this.userModel.findById(id);
   }
 
-  async findOneByPhone(phone: string): Promise<User | undefined> {
-    return this.userModel.findOne({ phone });
+  async findOneByPhone(
+    phone: string,
+    withPassword = false,
+  ): Promise<User | undefined> {
+    const query = this.userModel.findOne({ phone });
+    if (withPassword) {
+      query.select('+password');
+    }
+    return query.exec();
   }
 }

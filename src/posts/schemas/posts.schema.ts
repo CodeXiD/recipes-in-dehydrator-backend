@@ -2,6 +2,7 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 import { Category } from '../../categories/schemas/category.schema';
 import * as mongoose from 'mongoose';
+import { User } from '../../users/schemas/users.schema';
 
 export type PostDocument = Post & Document;
 
@@ -16,8 +17,12 @@ export class Post {
   @Prop({ required: true })
   imageUrl: string;
 
-  @Prop({ required: true })
-  author: string;
+  @Prop({
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+    required: true,
+  })
+  author: User;
 
   @Prop({
     type: mongoose.Schema.Types.ObjectId,

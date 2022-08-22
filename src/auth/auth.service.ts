@@ -11,7 +11,7 @@ export class AuthService {
   ) {}
 
   async validateUser(phone: string, password: string) {
-    const user = await this.usersService.findOneByPhone(phone);
+    const user = await this.usersService.findOneByPhone(phone, true);
 
     if (user && (await bcrypt.compare(password, user.password))) {
       return user;
@@ -27,8 +27,9 @@ export class AuthService {
       phone: matchUser.phone,
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
-      sub: matchUser!.id,
+      sub: matchUser.id,
       fullName: matchUser.fullName,
+      avatarUrl: matchUser.avatarUrl,
     };
 
     if (matchUser) {
