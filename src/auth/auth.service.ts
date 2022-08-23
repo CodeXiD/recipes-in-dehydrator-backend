@@ -23,6 +23,10 @@ export class AuthService {
   async login(user: any) {
     const matchUser = await this.validateUser(user.phone, user.password);
 
+    if (!matchUser) {
+      throw new UnauthorizedException();
+    }
+
     const payload = {
       phone: matchUser.phone,
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
