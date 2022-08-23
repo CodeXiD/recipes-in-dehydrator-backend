@@ -38,7 +38,6 @@ jobs:
         uses: SpicyPizza/create-envfile@v1
         with:
            envkey_MONGO_URI: ${{ secrets.MONGO_URI }}
-           directory: dist
            file_name: .env
 
       # Доставляем собранное приложение на сервер
