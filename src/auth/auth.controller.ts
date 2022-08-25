@@ -12,6 +12,13 @@ export class AuthController {
     return this.authService.login(req.body.user);
   }
 
+  @Post('register')
+  async register(@Request() req) {
+    return this.authService.register(req.body).then(() => {
+      return { success: true };
+    });
+  }
+
   @UseGuards(JwtAuthGuard)
   @Get('profile')
   async getProfile(@Request() req) {

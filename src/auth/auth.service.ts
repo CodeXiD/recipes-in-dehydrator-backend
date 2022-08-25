@@ -1,4 +1,9 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import {
+  HttpException,
+  HttpStatus,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { UsersService } from '../users/users.service';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
@@ -43,5 +48,25 @@ export class AuthService {
     } else {
       throw new UnauthorizedException();
     }
+  }
+
+  async register(user) {
+    const isExistUserWithPhone = !!(await this.usersService.findOneByPhone(
+      user.phone,
+    ));
+
+    if (isExistUserWithPhone) {
+      throw new HttpException(
+        'Користувач з таким телефоном вже зареєстрований',
+        HttpStatus.FORBIDDEN,
+      );
+    }
+
+    return this.usersService.create({
+      avatarUrl: 'https://image.pngaaa.com/539/2189539-small.png',
+      fullName: user.fullName,
+      phone: user.phone,
+      password: bcrypt.hashSync(user.password, bcrypt.genSaltSync(10)),
+    });
   }
 }
