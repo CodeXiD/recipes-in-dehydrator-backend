@@ -37,4 +37,8 @@ FileSchema.set('toJSON', {
   },
 });
 
+FileSchema.virtual('downloadUrl').get(function () {
+  return `${process.env.BACKEND_URL}/file/${this.path}`;
+});
+
 export { FileSchema };
