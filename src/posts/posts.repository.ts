@@ -14,10 +14,19 @@ export class PostsRepository {
   }
 
   async findAll(): Promise<Post[]> {
-    return this.postModel.find().populate('category').populate('author').exec();
+    return this.postModel
+      .find()
+      .populate('category')
+      .populate('author')
+      .populate('imageFile')
+      .exec();
   }
 
   async findById(id: string): Promise<Post> {
-    return this.postModel.findById(id).populate('category').populate('author');
+    return this.postModel
+      .findById(id)
+      .populate('category')
+      .populate('author')
+      .populate('imageFile');
   }
 }

@@ -14,8 +14,12 @@ export class Post {
   @Prop({ required: true })
   text: string;
 
-  @Prop({ required: true })
-  imageUrl: string;
+  @Prop({
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'File',
+    required: true,
+  })
+  imageFile: string;
 
   @Prop({
     type: mongoose.Schema.Types.ObjectId,
