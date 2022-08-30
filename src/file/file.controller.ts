@@ -10,6 +10,7 @@ import {
   UseInterceptors,
   UseGuards,
   StreamableFile,
+  Request,
 } from '@nestjs/common';
 import { FileService } from './file.service';
 import { FileInterceptor } from '@nestjs/platform-express';
@@ -24,7 +25,7 @@ export class FileController {
   @UseGuards(JwtAuthGuard)
   @Post('')
   @UseInterceptors(FileInterceptor('file', { dest: './storage' }))
-  uploadFile(@UploadedFile() file: Express.Multer.File) {
+  uploadFile(@UploadedFile() file: Express.Multer.File, @Request() req) {
     return this.fileService.create({
       originalName: file.originalname,
       encoding: file.encoding,
@@ -33,6 +34,7 @@ export class FileController {
       fileName: file.filename,
       path: file.path,
       size: file.size,
+      owner: req.user.userId,
     });
   }
 
@@ -44,8 +46,9 @@ export class FileController {
     return new StreamableFile(file);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Delete(':id')
-  remove(@Param('id') id: string) {
+  async remove(@Param('id') id: string) {
     return this.fileService.remove(id);
   }
 }
