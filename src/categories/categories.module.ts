@@ -7,9 +7,16 @@ import { CategoryRepository } from './categories.repository';
 import { PostsModule } from '../posts/posts.module';
 import { Post, PostSchema } from '../posts/schemas/posts.schema';
 import { User, UserSchema } from '../users/schemas/users.schema';
+import { FileSchema, File } from '../file/schemas/file.schema';
 
 @Module({
   imports: [
+    MongooseModule.forFeature([
+      {
+        name: File.name,
+        schema: FileSchema,
+      },
+    ]),
     MongooseModule.forFeature([
       {
         name: Category.name,

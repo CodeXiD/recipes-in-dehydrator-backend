@@ -5,6 +5,7 @@ import { Model, Document } from 'mongoose';
 import * as mongoose from 'mongoose';
 import { Post, PostDocument } from '../posts/schemas/posts.schema';
 import { User, UserDocument, UserSchema } from '../users/schemas/users.schema';
+import { FileDocument, File } from '../file/schemas/file.schema';
 
 @Injectable()
 export class CategoryRepository {
@@ -12,6 +13,7 @@ export class CategoryRepository {
     @InjectModel(Category.name) private categoryModel: Model<CategoryDocument>,
     @InjectModel(Post.name) private postModel: Model<PostDocument>,
     @InjectModel(User.name) private userModel: Model<UserDocument>,
+    @InjectModel(File.name) private fileModel: Model<FileDocument>,
   ) {}
 
   async findAll(): Promise<Category[]> {
@@ -44,6 +46,9 @@ export class CategoryRepository {
     });
     await this.categoryModel.populate(categoryWithPosts['posts'], {
       path: 'category',
+    });
+    await this.fileModel.populate(categoryWithPosts['posts'], {
+      path: 'imageFile',
     });
 
     const posts = categoryWithPosts.posts.map((postDocument) => {
