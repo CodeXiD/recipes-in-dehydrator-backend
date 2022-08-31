@@ -17,11 +17,11 @@ export class CategoryRepository {
   ) {}
 
   async findAll(): Promise<Category[]> {
-    return this.categoryModel.find().exec();
+    return this.categoryModel.find().populate('imageFile').exec();
   }
 
   async findById(id: string): Promise<Category> {
-    return this.categoryModel.findById(id);
+    return this.categoryModel.findById(id).populate('imageFile');
   }
 
   async findPostsByCategoryId(id: string) {
