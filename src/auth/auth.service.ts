@@ -38,7 +38,7 @@ export class AuthService {
       // @ts-ignore
       sub: matchUser.id,
       fullName: matchUser.fullName,
-      avatarUrl: matchUser.avatarUrl,
+      avatarFile: matchUser.avatarFile,
     };
 
     if (matchUser) {
@@ -63,7 +63,7 @@ export class AuthService {
     }
 
     return this.usersService.create({
-      avatarUrl: 'https://image.pngaaa.com/539/2189539-small.png',
+      avatarFile: null,
       fullName: user.fullName,
       phone: user.phone,
       password: bcrypt.hashSync(user.password, bcrypt.genSaltSync(10)),

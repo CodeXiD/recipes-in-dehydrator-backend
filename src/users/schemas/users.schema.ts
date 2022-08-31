@@ -16,8 +16,12 @@ export class User {
   @Prop({ required: true, select: false })
   password: string;
 
-  @Prop({ required: true })
-  avatarUrl: string;
+  @Prop({
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'File',
+    default: null,
+  })
+  avatarFile: mongoose.Schema.Types.ObjectId;
 }
 
 const UserSchema = SchemaFactory.createForClass(User);
