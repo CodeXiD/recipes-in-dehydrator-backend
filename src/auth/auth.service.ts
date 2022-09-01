@@ -18,6 +18,8 @@ export class AuthService {
   async validateUser(phone: string, password: string) {
     const user = await this.usersService.findOneByPhone(phone, true);
 
+    console.log('###', user);
+
     if (user && (await bcrypt.compare(password, user.password))) {
       return user;
     }
@@ -40,6 +42,8 @@ export class AuthService {
       fullName: matchUser.fullName,
       avatarFile: matchUser.avatarFile,
     };
+
+    console.log('### 2', payload);
 
     if (matchUser) {
       return {

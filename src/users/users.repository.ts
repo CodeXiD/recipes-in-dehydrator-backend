@@ -15,14 +15,14 @@ export class UsersRepository {
   }
 
   async findById(id: string): Promise<User | undefined> {
-    return this.userModel.findById(id);
+    return this.userModel.findById(id).populate('avatarFile');
   }
 
   async findOneByPhone(
     phone: string,
     withPassword = false,
   ): Promise<User | undefined> {
-    const query = this.userModel.findOne({ phone });
+    const query = this.userModel.findOne({ phone }).populate('avatarFile');
     if (withPassword) {
       query.select('+password');
     }
