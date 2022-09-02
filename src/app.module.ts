@@ -8,6 +8,7 @@ import { PostsModule } from './posts/posts.module';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { FileModule } from './file/file.module';
+import { FavoriteModule } from './favorite/favorite.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { FileModule } from './file/file.module';
     AuthModule,
     UsersModule,
     FileModule,
+    FavoriteModule,
   ],
   controllers: [AppController],
   providers: [AppService],
